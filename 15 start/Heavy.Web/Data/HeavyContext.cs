@@ -1,5 +1,6 @@
 ﻿using Heavy.Web.Models;
 using Microsoft.EntityFrameworkCore;
+using Heavy.Web.ViewModels;
 
 namespace Heavy.Web.Data
 {
@@ -16,5 +17,7 @@ namespace Heavy.Web.Data
         }
 
         public DbSet<Album> Albums { get; set; }
+
+        public DbSet<Heavy.Web.ViewModels.UserCreateViewModel> UserCreateViewModel { get; set; }
     }
 }
