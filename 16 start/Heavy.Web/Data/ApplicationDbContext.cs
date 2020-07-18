@@ -4,6 +4,7 @@ using System.Text;
 using Heavy.Web.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Heavy.Web.ViewModels;
 
 namespace Heavy.Web.Data
 {
@@ -13,5 +14,7 @@ namespace Heavy.Web.Data
             : base(options)
         {
         }
+        public DbSet<Heavy.Web.ViewModels.RoleCreateViewModel> RoleCreateViewModel { get; set; }
+        public DbSet<Heavy.Web.ViewModels.RoleEditViewModel> RoleEditViewModel { get; set; }
     }
 }
