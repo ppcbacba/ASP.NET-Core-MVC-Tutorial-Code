@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Heavy.Web.Data;
 using Heavy.Web.Models;
 using Heavy.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -70,7 +71,16 @@ namespace Heavy.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(user);
+            var vm = new ApplicationUser
+            {
+                BirthDate=user.BirthDate,
+                Email = user.Email,
+                IdCardNo = user.IdCardNo,
+                UserName = user.UserName,
+                Claims = user.Claims
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
@@ -117,6 +127,40 @@ namespace Heavy.Web.Controllers
             }
 
             return View("Index", await _userManager.Users.ToListAsync());
+        }
+
+        public async Task<IActionResult> ManageClaims(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return RedirectToAction("Index");
+            }
+            var vm=new ManageClaimsViewModel
+            {
+                Id=id,
+                ClaimTypes = ClaimTypes.AllClaimTypeList
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ManageClaims(ManageClaimsViewModel vm)
+        {
+            var user = await _userManager.FindByIdAsync(vm.Id);
+            if (user == null) return RedirectToAction("Index");
+
+            var claim=new IdentityUserClaim<string>
+            {
+                ClaimType = vm.ClaimId,
+                ClaimValue = vm.ClaimId
+            };
+            user.Claims.Add(claim);
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded) RedirectToAction("EditUser", new {id = vm.Id});
+
+            return View(vm);
         }
     }
 }
