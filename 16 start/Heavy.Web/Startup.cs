@@ -43,8 +43,10 @@ namespace Heavy.Web
                     options.Password.RequiredLength = 1;
                 })
                 .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders(); ;
+
+           
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
