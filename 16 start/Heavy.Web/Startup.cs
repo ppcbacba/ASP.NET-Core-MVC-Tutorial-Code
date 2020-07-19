@@ -44,7 +44,13 @@ namespace Heavy.Web
                 })
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders(); ;
+                .AddDefaultTokenProviders();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("仅限管理员",policy=>policy.RequireRole("Administrators")); 
+                options.AddPolicy("编辑专辑",policy=>policy.RequireClaim("Edit Alum"));
+            });
 
            
 

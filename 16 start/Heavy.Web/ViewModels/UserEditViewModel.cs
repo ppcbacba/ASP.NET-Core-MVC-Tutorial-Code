@@ -8,6 +8,8 @@ namespace Heavy.Web.ViewModels
 {
     public class UserEditViewModel
     {
+        public string Id { get; set; }
+
         [Required]
         [Display(Name = "用户名")]
         public string UserName { get; set; }
@@ -30,5 +32,7 @@ namespace Heavy.Web.ViewModels
         [Display(Name = "出生日期")]
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
+
+        public List<string> Claims { get; set; }
     }
 }

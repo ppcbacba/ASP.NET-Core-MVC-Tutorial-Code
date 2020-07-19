@@ -11,7 +11,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Heavy.Web.Controllers
 {
-    [Authorize(Roles="Administrators")]
+//    [Authorize(Roles="Administrators")] //直接用角色定义授权
+    [Authorize(Policy = "仅限管理员")] //在startup中定义的策略
     public class RoleController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
