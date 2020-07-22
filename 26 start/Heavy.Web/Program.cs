@@ -14,6 +14,7 @@ namespace Heavy.Web
     {
         public static void Main(string[] args)
         {
+            //Serilog的配置
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -43,12 +44,12 @@ namespace Heavy.Web
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                //.ConfigureLogging((hostingContext, logging) =>
-                //{
-                //    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                //    logging.AddConsole();
-                //})
-                .UseSerilog()
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                    logging.AddConsole();
+                })
+                 .UseSerilog() //启用Serilog
                 .UseStartup<Startup>();
     }
 }

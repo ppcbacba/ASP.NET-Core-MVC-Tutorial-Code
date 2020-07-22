@@ -76,6 +76,7 @@ namespace Heavy.Web.Controllers
             var claims = await _userManager.GetClaimsAsync(user);
             var vm=new UserEditViewModel
             {
+                Id = user.Id,
                 UserName = user.UserName,
                 IdCardNo = user.IdCardNo,
                 Email = user.Email,
@@ -135,9 +136,8 @@ namespace Heavy.Web.Controllers
 
         public async Task<IActionResult> ManageClaims(string id)
         {
-            //            var user = await _userManager.FindByIdAsync(id);
-            var user = await _userManager.Users.Include(x => x.Claims)
-                .Where(x => x.Id == id).SingleOrDefaultAsync();
+            var user = await _userManager.FindByIdAsync(id);
+           
             if (user == null)
             {
                 return RedirectToAction("Index");
@@ -170,7 +170,8 @@ namespace Heavy.Web.Controllers
             {
                 return RedirectToAction("EditUser", new {id = vm.UserId});
             }
-            return View("Index");
+            ModelState.AddModelError(string.Empty,"编辑Claim时出错");
+            return View(vm);
 
         }
     }

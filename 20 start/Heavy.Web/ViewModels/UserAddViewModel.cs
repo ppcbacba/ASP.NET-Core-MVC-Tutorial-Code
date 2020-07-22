@@ -30,5 +30,6 @@ namespace Heavy.Web.ViewModels
         [Display(Name = "出生日期")]
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
+        public UserRoleViewModel Role { get; set; }
     }
 }

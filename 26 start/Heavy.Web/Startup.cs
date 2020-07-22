@@ -65,9 +65,7 @@ namespace Heavy.Web
                 options.AddPolicy("编辑专辑", policy => policy.RequireClaim("Edit Albums"));
                 options.AddPolicy("编辑专辑1", policy => policy.RequireAssertion(context =>
                 {
-                    if (context.User.HasClaim(x => x.Type == "Edit Albums"))
-                        return true;
-                    return false;
+                    return context.User.HasClaim(x => x.Type == "Edit Albums");
                 }));
                 options.AddPolicy("编辑专辑2", policy => policy.AddRequirements(
                     // new EmailRequirement("@126.com"),
@@ -93,6 +91,11 @@ namespace Heavy.Web
                 // options.Filters.Add(typeof(LogAsyncResourceFilter));
                 options.Filters.Add<LogResourceFilter>();
             });
+
+            //启用缓存
+            services.AddMemoryCache();
+            services.AddResponseCompression();
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

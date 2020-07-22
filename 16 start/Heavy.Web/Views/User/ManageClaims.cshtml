@@ -3,12 +3,12 @@
 <h2> @ViewBag.Title</h2>
 
 <form asp-action="ManageClaims" method="post">
-    <input type="hidden" name="Id" value="@Model.UserId"/>
-    <select asp-for="ClaimId" asp-items="@(new SelectList(Model.AllClaims))">
+    <input type="hidden" name="UserId" value="@Model.UserId"/>
+    <select asp-for="ClaimId" asp-items="@(new SelectList(Model.AllClaims))" class="form-control">
         <option>---选择Claim--</option>
     </select>
-    <button type="submit" value="提交"></button>
+    <button type="submit" class="btn btn-primary" >添加Claim</button>
     <a asp-action="EditUser" 
        asp-route-id="@Model.UserId" 
-       class="btn btn-primary">返回列表</a>
+       class="btn btn-primary">返回</a>
 </form>
